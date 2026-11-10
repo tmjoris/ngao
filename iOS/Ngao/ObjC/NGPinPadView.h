@@ -4,6 +4,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class NGPinPadView;
 
+NS_SWIFT_UI_ACTOR
 @protocol NGPinPadViewDelegate <NSObject>
 /// Called once the user has entered `length` digits. The pad clears itself afterwards.
 - (void)pinPadView:(NGPinPadView *)pad didCompletePIN:(NSString *)pin;
@@ -13,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// in the field carry years of Objective-C, and this view is what a legacy component looks
 /// like when it is kept honest: ARC, nullability annotations, no UITextField (so no
 /// autocorrect, no clipboard, no keyboard cache), Core Animation for feedback.
-IB_DESIGNABLE
+IB_DESIGNABLE NS_SWIFT_UI_ACTOR
 @interface NGPinPadView : UIView
 
 @property (nonatomic, weak, nullable) id<NGPinPadViewDelegate> delegate;

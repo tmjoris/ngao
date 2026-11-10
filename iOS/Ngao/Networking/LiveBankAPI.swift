@@ -62,7 +62,7 @@ final class LiveBankAPI: BankAPI, @unchecked Sendable {
         let narration: String
     }
 
-    private struct ReceiptBody: Decodable {
+    fileprivate struct ReceiptBody: Decodable {
         let reference: String
         let amountCents: Int64
         let chargeCents: Int64
