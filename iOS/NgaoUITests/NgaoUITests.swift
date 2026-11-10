@@ -24,7 +24,7 @@ final class NgaoUITests: XCTestCase {
         XCTAssertTrue(status.waitForExistence(timeout: 3))
         XCTAssertTrue(status.label.contains("Wrong PIN"))
         enter(pin: "739142")
-        XCTAssertTrue(app.staticTexts["balance-0110012345678"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.staticTexts["balance-0110012345678"].firstMatch.waitForExistence(timeout: 5))
     }
 
     func testSendMoneyToMpesaShowsReceipt() {
@@ -42,8 +42,8 @@ final class NgaoUITests: XCTestCase {
         XCTAssertEqual(headline.label, "Sent")
         XCTAssertTrue(app.staticTexts["status-detail"].label.contains("Ref FT"))
         app.buttons["status-action"].tap()
-        XCTAssertTrue(app.staticTexts["balance-0110012345678"].waitForExistence(timeout: 5))
-        XCTAssertEqual(app.staticTexts["balance-0110012345678"].label, "KES 181,987.00") // 184,520 - 2,500 - 33
+        XCTAssertTrue(app.staticTexts["balance-0110012345678"].firstMatch.waitForExistence(timeout: 5))
+        XCTAssertEqual(app.staticTexts["balance-0110012345678"].firstMatch.label, "KES 181,987.00") // 184,520 - 2,500 - 33
     }
 
     func testLostResponseBlocksResendAndReconciles() {
