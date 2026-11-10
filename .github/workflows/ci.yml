@@ -21,7 +21,8 @@ jobs:
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
-      - run: sudo xcode-select -s /Applications/Xcode_16.2.app
+      - name: Show toolchain
+        run: xcodebuild -version && xcrun simctl list devices available | grep -i iphone | head -5
       - name: Generate project and install pods
         working-directory: iOS
         run: |
@@ -32,13 +33,13 @@ jobs:
         working-directory: iOS
         run: |
           xcodebuild test -workspace Ngao.xcworkspace -scheme Ngao \
-            -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
             -only-testing:NgaoTests -resultBundlePath ../TestResults.xcresult
       - name: UI tests
         working-directory: iOS
         run: |
           xcodebuild test -workspace Ngao.xcworkspace -scheme Ngao \
-            -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
             -only-testing:NgaoUITests
       - uses: actions/upload-artifact@v4
         if: always()
@@ -53,7 +54,6 @@ jobs:
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
-      - run: sudo xcode-select -s /Applications/Xcode_16.2.app
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.3"
