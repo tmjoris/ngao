@@ -1,6 +1,7 @@
 import XCTest
 
 /// Drives the real UI against the in-process scripted bank. PIN is 739142.
+@MainActor
 final class NgaoUITests: XCTestCase {
     var app: XCUIApplication!
 
