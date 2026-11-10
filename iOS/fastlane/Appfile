@@ -1,0 +1,2 @@
+app_identifier("ke.ngao.app")
+# apple_id and team_id come from the environment in CI: FASTLANE_USER, FASTLANE_TEAM_ID.

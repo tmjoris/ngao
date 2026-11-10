@@ -1,0 +1,8 @@
+# CocoaPods is used for SwiftLint only; everything else comes through Swift Package Manager.
+platform :ios, '15.0'
+install! 'cocoapods', :warn_for_unused_master_specs_repo => false
+
+target 'Ngao' do
+  use_frameworks!
+  pod 'SwiftLint', '~> 0.57'
+end

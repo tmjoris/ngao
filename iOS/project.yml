@@ -1,0 +1,65 @@
+# XcodeGen spec. On a Mac: `brew install xcodegen && cd iOS && xcodegen generate && pod install && open Ngao.xcworkspace`
+name: Ngao
+options:
+  bundleIdPrefix: ke.ngao
+  deploymentTarget:
+    iOS: "15.0"
+  xcodeVersion: "16.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+    SWIFT_OBJC_BRIDGING_HEADER: Ngao/ObjC/Ngao-Bridging-Header.h
+    CLANG_ENABLE_OBJC_ARC: YES
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+packages:
+  NgaoCore:
+    path: ../
+targets:
+  Ngao:
+    type: application
+    platform: iOS
+    sources:
+      - path: Ngao
+    dependencies:
+      - package: NgaoCore
+    info:
+      path: Ngao/Resources/Info.plist
+      properties:
+        CFBundleDisplayName: Ngao
+        UILaunchStoryboardName: ""
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+          UISceneConfigurations:
+            UIWindowSceneSessionRoleApplication:
+              - UISceneConfigurationName: Default
+                UISceneDelegateClassName: $(PRODUCT_MODULE_NAME).SceneDelegate
+        NSFaceIDUsageDescription: Ngao uses Face ID to unlock your accounts.
+        NSAppTransportSecurity:
+          NSAllowsArbitraryLoads: false
+        NGAO_API_BASE_URL: $(NGAO_API_BASE_URL)
+        NGAO_PIN_SHA256: $(NGAO_PIN_SHA256)
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ke.ngao.app
+        CODE_SIGN_STYLE: Automatic
+        NGAO_API_BASE_URL: https://ngao-api.example.com
+        # Base64 SPKI SHA-256 of the API's leaf or intermediate. Empty disables pinning in debug only.
+        NGAO_PIN_SHA256: ""
+    scheme:
+      testTargets: [NgaoTests, NgaoUITests]
+      gatherCoverageData: true
+  NgaoTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: [NgaoTests]
+    dependencies:
+      - target: Ngao
+  NgaoUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: [NgaoUITests]
+    dependencies:
+      - target: Ngao

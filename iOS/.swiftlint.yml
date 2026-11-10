@@ -1,0 +1,3 @@
+disabled_rules: [trailing_comma, line_length]
+opt_in_rules: [force_unwrapping, implicitly_unwrapped_optional, closure_spacing, empty_count]
+excluded: [Pods, Ngao/ObjC]

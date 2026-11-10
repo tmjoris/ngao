@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  core-linux:
+    name: NgaoCore (Linux, Swift 6.4)
+    runs-on: ubuntu-24.04
+    container: swift:6.4-noble
+    steps:
+      - uses: actions/checkout@v4
+      - run: swift test --parallel
+      - name: Mock bank checks
+        run: apt-get update -qq && apt-get install -y -qq python3 >/dev/null && python3 -I tools/test_mockbank.py
+
+  ios:
+    name: iOS app (Xcode)
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo xcode-select -s /Applications/Xcode_16.2.app
+      - name: Generate project and install pods
+        working-directory: iOS
+        run: |
+          brew install xcodegen
+          xcodegen generate
+          pod install
+      - name: Unit tests
+        working-directory: iOS
+        run: |
+          xcodebuild test -workspace Ngao.xcworkspace -scheme Ngao \
+            -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
+            -only-testing:NgaoTests -resultBundlePath ../TestResults.xcresult | xcpretty
+      - name: UI tests
+        working-directory: iOS
+        run: |
+          xcodebuild test -workspace Ngao.xcworkspace -scheme Ngao \
+            -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
+            -only-testing:NgaoUITests | xcpretty
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: xcresult
+          path: TestResults.xcresult
+
+  testflight:
+    name: TestFlight
+    if: github.ref == 'refs/heads/main' && vars.TESTFLIGHT_ENABLED == 'true'
+    needs: [core-linux, ios]
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo xcode-select -s /Applications/Xcode_16.2.app
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+          working-directory: iOS
+      - run: brew install xcodegen
+      - name: Upload beta
+        working-directory: iOS
+        env:
+          ASC_KEY_ID: ${{ secrets.ASC_KEY_ID }}
+          ASC_ISSUER_ID: ${{ secrets.ASC_ISSUER_ID }}
+          ASC_KEY_CONTENT: ${{ secrets.ASC_KEY_CONTENT }}
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        run: bundle exec fastlane beta
