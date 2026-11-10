@@ -79,6 +79,7 @@ final class HomeViewController: UITableViewController {
             content.secondaryText = Masking.account(account.id)
             let amount = Theme.amount(account.balance, style: .headline)
             amount.accessibilityIdentifier = "balance-\(account.id)"
+            amount.sizeToFit()
             cell.accessoryView = amount
             cell.accessoryType = .none
             cell.accessibilityIdentifier = "account-\(account.id)"

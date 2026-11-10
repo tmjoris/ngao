@@ -16,6 +16,26 @@ iOS/               UIKit app, MVVM + Coordinators, programmatic layout, no story
 tools/mockbank.py  Core-banking mock with idempotency and fault injection, stdlib only.
 ```
 
+## Screenshots
+
+Captured by the `Screenshots` workflow on an iPhone 16 Pro simulator from the XCUITest walkthrough.
+
+<p>
+<img src="docs/screenshots/01-login.png" width="180" alt="PIN pad with shuffled keys">
+<img src="docs/screenshots/02-wrong-pin.png" width="180" alt="Wrong PIN feedback">
+<img src="docs/screenshots/03-home.png" width="180" alt="Accounts home">
+<img src="docs/screenshots/04-send-money.png" width="180" alt="Send money form">
+</p>
+<p>
+<img src="docs/screenshots/05-confirm.png" width="180" alt="Confirm transfer">
+<img src="docs/screenshots/06-sent.png" width="180" alt="Transfer sent with receipt">
+<img src="docs/screenshots/07-unknown.png" width="180" alt="Lost response: confirming with the bank, no resend offered">
+<img src="docs/screenshots/09-cards.png" width="180" alt="Freeze a card">
+</p>
+
+The seventh screen is the point of the project: the bank committed the transfer but the
+response was lost, so the app refuses to offer "send again" until it has asked the bank.
+
 ## The double-charge problem
 
 A transfer request leaves the phone. The bank debits the account. The response is lost: the
@@ -104,5 +124,5 @@ which the scripted bank treats as "committed, response lost".
 - [x] Core state machine, outbox, policies with tests (Linux CI)
 - [x] Mock bank with idempotency and fault injection
 - [x] iOS app: login, home, send money, status, cards; Keychain, pinning, shield; unit and UI tests green on a macOS runner
-- [ ] Screenshots
+- [x] Screenshots, captured in CI
 - [ ] TestFlight
