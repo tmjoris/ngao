@@ -32,7 +32,7 @@ actor FileOutboxStorage: OutboxStorage {
     func save(_ machine: TransferMachine) async throws {
         if cache == nil { _ = try await load() }
         cache?[machine.intent.id] = machine
-        let data = try encoder.encode(Array(cache?.values ?? [:].values))
+        let data = try encoder.encode(Array((cache ?? [:]).values))
         try data.write(to: url, options: [.atomic, .completeFileProtection])
         var values = URLResourceValues()
         values.isExcludedFromBackup = true

@@ -10,7 +10,7 @@ import Security
 /// App Transport Security still applies underneath (TLS 1.2+, forward secrecy). Pinning
 /// adds protection against a compromised or coerced CA, which is the threat model for a
 /// banking app on untrusted Wi-Fi.
-final class PinnedSession: NSObject, URLSessionDelegate, Sendable {
+final class PinnedSession: NSObject, URLSessionDelegate, @unchecked Sendable {
     private let pins: Set<String>
     private let allowUnpinned: Bool
 

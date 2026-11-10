@@ -33,13 +33,13 @@ jobs:
         run: |
           xcodebuild test -workspace Ngao.xcworkspace -scheme Ngao \
             -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
-            -only-testing:NgaoTests -resultBundlePath ../TestResults.xcresult | xcpretty
+            -only-testing:NgaoTests -resultBundlePath ../TestResults.xcresult
       - name: UI tests
         working-directory: iOS
         run: |
           xcodebuild test -workspace Ngao.xcworkspace -scheme Ngao \
             -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
-            -only-testing:NgaoUITests | xcpretty
+            -only-testing:NgaoUITests
       - uses: actions/upload-artifact@v4
         if: always()
         with:

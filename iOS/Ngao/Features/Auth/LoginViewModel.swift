@@ -47,7 +47,10 @@ final class LoginViewModel {
 
     func submit(pin: String) async {
         refreshLockState()
-        guard state == .idle || { if case .error = state { return true }; return false }() else { return }
+        switch state {
+        case .idle, .error: break
+        default: return
+        }
         state = .checking
         do {
             let customer = try await api.login(pin: pin)

@@ -3,7 +3,7 @@ name: Ngao
 options:
   bundleIdPrefix: ke.ngao
   deploymentTarget:
-    iOS: "15.0"
+    iOS: "16.0"
   xcodeVersion: "16.0"
   createIntermediateGroups: true
 settings:

@@ -5,14 +5,14 @@ import UIKit
 @MainActor
 final class PrivacyShield {
     private let window: UIWindow
-    private var cover: UIView?
+    private var coverView: UIView?
 
     init(window: UIWindow) {
         self.window = window
     }
 
     func cover() {
-        guard cover == nil else { return }
+        guard coverView == nil else { return }
         let view = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
         view.frame = window.bounds
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -28,12 +28,12 @@ final class PrivacyShield {
             logo.heightAnchor.constraint(equalToConstant: 72),
         ])
         window.addSubview(view)
-        cover = view
+        coverView = view
     }
 
     func uncover() {
-        guard let view = cover else { return }
-        cover = nil
+        guard let view = coverView else { return }
+        coverView = nil
         UIView.animate(withDuration: 0.2, animations: { view.alpha = 0 }) { _ in view.removeFromSuperview() }
     }
 }

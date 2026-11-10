@@ -105,8 +105,13 @@ final class LiveBankAPI: BankAPI, @unchecked Sendable {
         try? keychain.setString(token, for: KeychainKeys.sessionToken, protection: .deviceOnly)
     }
 
-    private func send<Out: Decodable>(_ method: String, _ path: String, body: (some Encodable)? = Optional<Int>.none,
-                                      headers: [String: String] = [:], authenticated: Bool = true) async throws -> Out {
+    private func send<Out: Decodable>(_ method: String, _ path: String, headers: [String: String] = [:],
+                                      authenticated: Bool = true) async throws -> Out {
+        try await send(method, path, body: Optional<Int>.none, headers: headers, authenticated: authenticated)
+    }
+
+    private func send<Body: Encodable, Out: Decodable>(_ method: String, _ path: String, body: Body?,
+                                                       headers: [String: String] = [:], authenticated: Bool = true) async throws -> Out {
         var request = URLRequest(url: baseURL.appendingPathComponent(path))
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Accept")

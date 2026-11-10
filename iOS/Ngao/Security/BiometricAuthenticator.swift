@@ -22,7 +22,7 @@ struct BiometricAuthenticator: Sendable {
         let context = LAContext()
         context.localizedCancelTitle = "Use PIN"
         context.localizedFallbackTitle = ""
-        try await context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason)
+        _ = try await context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason)
         return context
     }
 }
