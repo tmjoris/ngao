@@ -2,6 +2,7 @@ import NgaoCore
 import XCTest
 @testable import Ngao
 
+@MainActor
 final class WireDestinationTests: XCTestCase {
     func testAllDestinationsRoundTrip() throws {
         let cases: [Destination] = [
