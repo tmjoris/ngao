@@ -1,5 +1,7 @@
 # Ngao
 
+[![CI](https://github.com/tmjoris/ngao/actions/workflows/ci.yml/badge.svg)](https://github.com/tmjoris/ngao/actions/workflows/ci.yml)
+
 A mobile-banking client for iOS built the way a bank's security team would want it, around
 the one problem every mobile money app eventually gets wrong: charging a customer twice.
 
@@ -101,6 +103,6 @@ which the scripted bank treats as "committed, response lost".
 
 - [x] Core state machine, outbox, policies with tests (Linux CI)
 - [x] Mock bank with idempotency and fault injection
-- [x] iOS sources: login, home, send money, status, cards; Keychain, pinning, shield
-- [ ] First build on a Mac and screenshots
+- [x] iOS app: login, home, send money, status, cards; Keychain, pinning, shield; unit and UI tests green on a macOS runner
+- [ ] Screenshots
 - [ ] TestFlight
