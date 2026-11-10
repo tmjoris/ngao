@@ -5,11 +5,13 @@ import XCTest
 final class NgaoUITests: XCTestCase {
     var app: XCUIApplication!
 
-    override func setUp() {
+    override func setUp() async throws {
         continueAfterFailure = false
-        app = XCUIApplication()
-        app.launchArguments = ["-ui-testing"]
-        app.launch()
+        await MainActor.run {
+            app = XCUIApplication()
+            app.launchArguments = ["-ui-testing"]
+            app.launch()
+        }
     }
 
     private func enter(pin: String) {
