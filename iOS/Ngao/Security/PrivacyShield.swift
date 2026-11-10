@@ -40,6 +40,7 @@ final class PrivacyShield {
 
 /// Blocks screenshots and screen recording of a sensitive view by hosting it inside a
 /// secure text field's layer. The system strips secure-entry content from captures.
+@MainActor
 enum ScreenshotGuard {
     static func protect(_ view: UIView) {
         let field = UITextField()

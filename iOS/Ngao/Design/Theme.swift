@@ -1,6 +1,7 @@
 import NgaoCore
 import UIKit
 
+@MainActor
 enum Theme {
     static let green = UIColor(red: 0.0, green: 0.42, blue: 0.31, alpha: 1)
     static let gold = UIColor(red: 0.85, green: 0.65, blue: 0.13, alpha: 1)
