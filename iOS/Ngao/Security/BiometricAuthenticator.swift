@@ -18,6 +18,7 @@ struct BiometricAuthenticator: Sendable {
     }
 
     /// Returns an authenticated context that Keychain reads can be bound to.
+    @MainActor
     func authenticate(reason: String) async throws -> LAContext {
         let context = LAContext()
         context.localizedCancelTitle = "Use PIN"

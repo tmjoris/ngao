@@ -99,7 +99,7 @@ final class LoginViewController: UIViewController, NGPinPadViewDelegate {
             spinner.stopAnimating()
             statusLabel.textColor = Theme.danger
             statusLabel.text = text
-            pinPad.clearAnimated(true, rejected: true)
+            pinPad.clear(animated: true, rejected: true)
         case .authenticated:
             spinner.stopAnimating()
             onAuthenticated?()
