@@ -57,9 +57,15 @@ targets:
     sources: [NgaoTests]
     dependencies:
       - target: Ngao
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
   NgaoUITests:
     type: bundle.ui-testing
     platform: iOS
     sources: [NgaoUITests]
     dependencies:
       - target: Ngao
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
