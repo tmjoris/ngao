@@ -36,7 +36,7 @@ final class NgaoUITests: XCTestCase {
         app.textFields["amount"].tap()
         app.textFields["amount"].typeText("2500")
         app.buttons["continue"].tap()
-        app.alerts.buttons["Send"].tap()
+        app.alerts.buttons["Send"].firstMatch.tap()
         let headline = app.staticTexts["status-headline"]
         XCTAssertTrue(headline.waitForExistence(timeout: 5))
         XCTAssertEqual(headline.label, "Sent")
@@ -55,7 +55,7 @@ final class NgaoUITests: XCTestCase {
         app.textFields["amount"].tap()
         app.textFields["amount"].typeText("1000")
         app.buttons["continue"].tap()
-        app.alerts.buttons["Send"].tap()
+        app.alerts.buttons["Send"].firstMatch.tap()
         let headline = app.staticTexts["status-headline"]
         XCTAssertTrue(headline.waitForExistence(timeout: 5))
         XCTAssertEqual(headline.label, "Confirming with the bank")
